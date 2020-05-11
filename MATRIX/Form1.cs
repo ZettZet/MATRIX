@@ -87,7 +87,7 @@ namespace MATRIX {
 		}
 
 		private void Add_MouseDown(object sender, MouseEventArgs e) {
-			//try {
+			try {
 				Matrix L = new Matrix(OperandA.ToDoubleArray());
 				Matrix R = new Matrix(OperandB.ToDoubleArray());
 				Matrix res = new Matrix(1, 1);
@@ -100,10 +100,10 @@ namespace MATRIX {
 						break;
 				}
 				Result.ToDisplay(res);
-			//}
-			//catch(Exception A) {
-			//	MessageBox.Show(A.Message);
-			//}
+			}
+			catch(Exception A) {
+				MessageBox.Show(A.Message);
+			}
 		}
 
 		private void Sub_MouseDown(object sender, MouseEventArgs e) {
