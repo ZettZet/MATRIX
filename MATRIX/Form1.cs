@@ -87,7 +87,7 @@ namespace MATRIX {
 		}
 
 		private void Add_MouseDown(object sender, MouseEventArgs e) {
-			try {
+			//try {
 				Matrix L = new Matrix(OperandA.ToDoubleArray());
 				Matrix R = new Matrix(OperandB.ToDoubleArray());
 				Matrix res = new Matrix(1, 1);
@@ -100,10 +100,10 @@ namespace MATRIX {
 						break;
 				}
 				Result.ToDisplay(res);
-			}
-			catch(Exception A) {
-				MessageBox.Show(A.Message);
-			}
+			//}
+			//catch(Exception A) {
+			//	MessageBox.Show(A.Message);
+			//}
 		}
 
 		private void Sub_MouseDown(object sender, MouseEventArgs e) {
@@ -250,28 +250,34 @@ namespace MATRIX {
 			}
 		}
 		public static double[][] ToDoubleArray(this DataGridView view) {
-			double[][] temp = new double[view.ColumnCount][];
-			for(int x = 0; x < view.ColumnCount; x++) {
-				temp[x] = new double[view.RowCount];
-				for(int y = 0; y < view.RowCount; y++) {
-					if(!double.TryParse(view[x, y].Value.ToString(), out temp[x][y])) {
-						throw new Exception($"Введена не цифра\n[{x + 1},{y + 1}]");
-					}
-				}
+			double[][] ret = new double[view.Rows.Count][];
+			for(int x = 0; x < view.Rows.Count; x++) {
+				ret[x] = new double[view.Columns.Count];
+				for(int y = 0; y < view.Columns.Count; y++)
+					if(!double.TryParse(view.Rows[x].Cells[y].Value.ToString(), out ret[x][y]))
+						throw new Exception($"Isn't numeric value at [{x + 1},{y + 1}]");
 			}
-			return temp;
+
+			return ret;
 		}
-		public static void ToDisplay(this DataGridView view, Matrix arr) {
-			view.Rows.Clear();
-			view.Columns.Clear();
-			for(int i = 0; i < arr.Columns; i++) {
-				view.Columns.Add("", "");
-			}
-			view.Rows.Add(arr.Rows);
-			for(int x = 0; x < view.ColumnCount; x++) {
-				for(int y = 0; y < view.RowCount; y++) {
-					view[x, y].Value = arr[x, y];
+
+		public static void ToDisplay(this DataGridView view, Matrix twoD) {
+			view.Clear();
+
+			int height = twoD.Rows;
+			int width = twoD.Columns;
+
+			view.ColumnCount = width;
+
+			for(int r = 0; r < height; r++) {
+				DataGridViewRow row = new DataGridViewRow();
+				row.CreateCells(view);
+
+				for(int c = 0; c < width; c++) {
+					row.Cells[c].Value = twoD[r, c].ToString();
 				}
+
+				view.Rows.Add(row);
 			}
 		}
 		public static void ToDisplay(this DataGridView view, double arr) {
@@ -280,6 +286,10 @@ namespace MATRIX {
 			view.Columns.Add("", "");
 			view.Rows.Add(1);
 			view[0, 0].Value = arr;
+		}
+		public static void Clear(this DataGridView view) {
+			view.Rows.Clear();
+			view.Columns.Clear();
 		}
 	}
 	public static class Extension {
