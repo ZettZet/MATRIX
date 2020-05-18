@@ -161,7 +161,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button Cancel;
-		private System.Windows.Forms.Button Resize;
+		private new System.Windows.Forms.Button Resize;
 		public System.Windows.Forms.CheckBox LR;
 		public System.Windows.Forms.NumericUpDown row;
 		public System.Windows.Forms.NumericUpDown colm;

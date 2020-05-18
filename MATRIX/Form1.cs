@@ -214,7 +214,7 @@ namespace MATRIX {
 			Result.RowFill();
 		}
 
-		private void toolStripButton1_Click(object sender, EventArgs e) {
+		private void ToolStripButton1_Click(object sender, EventArgs e) {
 			Form2 dialog = new Form2();
 			if(dialog.ShowDialog() == DialogResult.OK) {
 				if(dialog.LR.Checked) {
@@ -308,9 +308,12 @@ namespace MATRIX {
 				for(int c = 0; c < m.Columns && haveZero; c++) {
 					haveZero = m[r, c] == 0;
 				}
-				rank++;
+				if(haveZero)
+					rank++;
 			}
-			return m.Rows - rank;
+			int dim = m.Rows > m.Columns ? m.Columns : m.Rows;
+
+			return rank == 0 ? dim : dim - rank;
 
 		}
 	}

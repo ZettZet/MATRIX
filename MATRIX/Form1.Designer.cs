@@ -350,7 +350,7 @@
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new System.Drawing.Size(43, 22);
 			this.toolStripButton1.Text = "Resize";
-			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+			this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
 			// 
 			// panel2
 			// 
